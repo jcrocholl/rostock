@@ -1,5 +1,9 @@
-Concept for a delta robot 3D printer with the following design goals:
+====================================
+Concept for a delta robot 3D printer
+====================================
 
+Design goals
+------------
 - Build volume: 8x8x16 inches or 200x200x400 mm
 - Footprint: 12x12 inches
 - Print surface: 8x8 inches heated glass which never moves
@@ -11,8 +15,8 @@ Concept for a delta robot 3D printer with the following design goals:
   (not including washers, nuts and SMD-mounted electronics)
 - Hardware cost: less than $500 USD
 
-I want to use the following common components:
-
+Parts
+-----
 - Stepper motors: 4x NEMA 17 (plus extruder motors)
 - Timing belt: High-torque GT2 belt (2 mm pitch)
 - Pulleys: 12 groove aluminum (7.6 mm pitch diameter)
@@ -25,6 +29,10 @@ I want to use the following common components:
 - Hotend(s): MakerGear 1.75 mm
 - Top and bottom frame: laser-cut plywood
 
-Inspiration: search YouTube for "flexpicker" or "adept quattro".
+Inspiration
+-----------
+Search YouTube for "flexpicker" or "adept quattro".
 
-Closest ancestor: heliumfrog.net63.net/deltarobot/delta.html
+Ancestors
+---------
+http://heliumfrog.net63.net/deltarobot/delta.html
