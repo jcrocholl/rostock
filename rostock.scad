@@ -12,7 +12,7 @@ joint_radius = 108;
 motor_radius = 185;
 carriage_z = 300;
 rod_length = 265;
-z0 = 60;
+z0 = 70;
 
 module platform() {
 	difference() {
