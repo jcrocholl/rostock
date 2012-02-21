@@ -2,6 +2,7 @@ use <pulley.scad>;
 use <belt.scad>;
 use <bearing.scad>;
 use <nema.scad>;
+use <motor_end.scad>;
 
 aluminum = [0.9, 0.9, 0.9];
 carbon = [0.1, 0.1, 0.1];
@@ -12,7 +13,7 @@ joint_radius = 108;
 motor_radius = 185;
 carriage_z = 300;
 rod_length = 265;
-z0 = 70;
+z0 = 120;
 
 module platform() {
 	difference() {
@@ -84,6 +85,7 @@ module z_carriage() {
 
 module tower(z) {
 	translate([0, tower_radius, 0]) {
+		translate([0, 0, 30]) rotate([0, 0, 180]) motor_end();
 		translate([30, 0, 0]) shaft(z0+z-14);
 		translate([-30, 0, 0]) shaft(z0+z-14);
 		translate([0, 0, z0+z-14]) rotate([0, 0, 180]) z_carriage();
@@ -191,6 +193,8 @@ translate([0, 0, -160]) {
 
 	translate([animate_x(), animate_y(), z0]) platform();
 
-	color([0.9, 0, 0]) translate([0, 0, 32]) // rotate([0, 0, 45])
+	% translate([0, 0, 2]) cylinder(r=tower_radius, h=12, center=true);
+	% translate([0, 0, 58]) cylinder(r=tower_radius, h=12, center=true);
+	color([0.9, 0, 0]) translate([0, 0, 65])
 		cube([215, 215, 2], center=true);
 }
