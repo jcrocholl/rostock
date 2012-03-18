@@ -21,7 +21,7 @@ module screws() {
 module bracket(h) {
 	difference() {
 		union() {
-			translate([0, -1, 0]) cube([w+12, 21, h], center=true);
+			translate([0, -1, 0]) cube([w+12, 22, h], center=true);
 			// Sandwich mount
 			translate([-w/2, 10, 0]) cylinder(r=6, h=h, center=true);
 			translate([w/2, 10, 0]) cylinder(r=6, h=h, center=true);
@@ -66,14 +66,4 @@ module motor_end() {
 	}
 }
 
-module idler_end() {
-	difference() {
-		bracket(28);
-		rotate([90]) cylinder(r=4, h=40, center=true);
-		for (z = [-7, 7]) {
-			translate([0, 0, z]) screws();
-		}
-	}
-}
-
-rotate([0, 0, 45]) idler_end();
+rotate([0, 0, 45]) motor_end();
