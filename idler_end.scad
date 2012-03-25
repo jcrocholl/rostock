@@ -1,15 +1,14 @@
-use <motor_end.scad>;
+use <bracket.scad>;
 
 $fa = 12;
 $fs = 0.5;
 
-w = 60; // Smooth rod distance (center to center).
 h = 28; // Total height.
-angle = 89; // Because the timing belt is pulling pretty hard.
+angle = 90 - 1.5; // Because the timing belt is pulling pretty hard.
 
 module bearing_mount() {
-	translate([0, 0, 1.66]) cylinder(r1=12, r2=9, h=1, center=true);
-	translate([0, 0, -1.66]) cylinder(r1=9, r2=12, h=1, center=true);
+	translate([0, 0, 1.66]) cylinder(r1=12, r2=9, h=1.1, center=true);
+	translate([0, 0, -1.66]) cylinder(r1=9, r2=12, h=1.1, center=true);
 }
 
 module idler_end() {
@@ -38,4 +37,4 @@ module idler_end() {
 	}
 }
 
-idler_end();
+translate([0, 0, h/2]) idler_end();
