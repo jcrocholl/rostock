@@ -18,7 +18,7 @@ module idler_end() {
 			bracket(h);
 			translate([0, 8, 0]) rotate([angle]) bearing_mount();
 			// Micro switch placeholder.
-			% translate([20, 19, -h/2+4])
+			% translate([19, 19, -h/2+4])
 				  cube([19.6, 6.34, 10.2], center=true);
 			difference() {
 				translate([20, 11.88, -h/2+5]) cube([18, 8, 10], center=true);
@@ -26,9 +26,9 @@ module idler_end() {
 					cylinder(r=3, h=20, center=true);
 			}
 		}
-		translate([20-9.5/2, 12, -h/2+6]) rotate([90])
+		translate([19-9.5/2, 12, -h/2+6]) rotate([90])
 			cylinder(r=1.1, h=11, center=true, $fn=12);
-		translate([20+9.5/2, 12, -h/2+6]) rotate([90])
+		translate([19+9.5/2, 12, -h/2+6]) rotate([90])
 			cylinder(r=1.1, h=11, center=true, $fn=12);
 		translate([0, 8, 0]) rotate([angle])
 			cylinder(r=4, h=40, center=true);
