@@ -9,7 +9,7 @@ module screws() {
 		translate([x, 0, 0]) {
 			// M3 screw hole
 			translate([0, -6, 0]) rotate([0, 90, 0])
-				cylinder(r=1.6, h=20, center=true);
+				cylinder(r=1.65, h=20, center=true);
 			// M3 nut holder
 			translate([-x/5, -6, 0])
 				rotate([30, 0, 0]) rotate([0, 90, 0])
