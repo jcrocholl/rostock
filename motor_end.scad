@@ -1,8 +1,5 @@
 use <bracket.scad>;
 
-$fa = 12;
-$fs = 0.5;
-
 h = 44; // Total height.
 m = 29; // Motor mounting screws distance (center to center)
 

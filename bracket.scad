@@ -1,3 +1,6 @@
+$fa = 12;
+$fs = 0.5;
+
 w = 60; // Smooth rod distance (center to center)
 
 module screws() {
