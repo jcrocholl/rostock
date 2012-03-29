@@ -36,9 +36,11 @@ module bracket(h) {
 			}
 		}
 		// Belt path.
-		translate([0, -4, 0]) cube([w-20, 20, h+1], center=true);
-		translate([0, -8, 0]) cube([w-12, 20, h+1], center=true);
-		translate([-w/2+10, 2, 0]) cylinder(r=4, h=h+1, center=true);
-		translate([w/2-10, 2, 0]) cylinder(r=4, h=h+1, center=true);
+		translate([0, -5, 0]) cube([w-20, 20, h+1], center=true);
+		translate([0, -9, 0]) cube([w-12, 20, h+1], center=true);
+		translate([-w/2+10, 1, 0]) cylinder(r=4, h=h+1, center=true);
+		translate([w/2-10, 1, 0]) cylinder(r=4, h=h+1, center=true);
 	}
 }
+
+translate([0, 0, 10]) bracket(20);
