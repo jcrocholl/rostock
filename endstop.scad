@@ -12,8 +12,9 @@ module microswitch() {
 
 x = -45 * cos(30);
 y = 50 - 45 * sin(30);
+a = 0;  // Micro switch angle for rotation around Z axis.
 
-% translate([30+x, y, 4]) rotate([0, 180, -30]) microswitch();
+% translate([30+x, y, 4]) rotate([0, 180, -a]) microswitch();
 
 module endstop() {
 	difference() {
@@ -22,21 +23,22 @@ module endstop() {
 				bracket(h);
 				translate([30, 10, 0]) cube([12, 25, h], center=true);
 			}
-			translate([30, 16.3, -b/2]) cube([12, 19, b], center=true);
-			translate([-x, y, -b/2]) rotate([0, 0, 30])
-				translate([-3.15-5.35, -3.5, 0])
-				cube([10.7, 19, b], center=true);
+			translate([30, 16, -b/2]) cube([12, 12, b], center=true);
+			translate([30, 22, -b/2]) intersection() {
+				cube([12, 24, b], center=true);
+				translate([6, 0, 0]) cylinder(r=12, h=b, center=true);
+			}
 		}
 		// M2.5x12 micro switch mounting screws.
-		# translate([-x, y, -b/2]) rotate([0, 0, 30]) {
+		# translate([-x, y, -b/2]) rotate([0, 0, a]) {
 			translate([0, -3.5-9.5/2, 0]) rotate([0, 90])
-				cylinder(r=1.1, h=26, center=true, $fn=12);
+				cylinder(r=1.1, h=36, center=true, $fn=12);
 			translate([0, -3.5+9.5/2, 0]) rotate([0, 90])
-				cylinder(r=1.1, h=26, center=true, $fn=12);
+				cylinder(r=1.1, h=36, center=true, $fn=12);
 		}
 		// Push-through hole for vertical M4 screw.
 		translate([30, 12, -h/2])
-			# cylinder(r=2.2, h=h+1, center=true, $fn=12);
+			# cylinder(r=2.2, h=2*h, center=true, $fn=12);
 	}
 }
 
