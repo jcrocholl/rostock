@@ -48,32 +48,36 @@ module lm8uu_mount() {
 	}
 }
 
-union() {
-	for (x = [-30, 30]) {
-		translate([x, 0, 0]) lm8uu_mount();
-	}
-	difference() {
-		union() {
-			translate([0, -6, 0])
-				cube([50, 4, height], center=true);
-			translate([0, -22, -height/2+4])
-				parallel_joints();
-		}
+module carriage() {
+	union() {
 		for (x = [-30, 30]) {
-			translate([x, 0, 0])
-				cylinder(r=8, h=height+1, center=true);
-			for (z = [-4.495, 4.5])
-				translate([x, 0, z])
-					cylinder(r=13, h=3, center=true);
+			translate([x, 0, 0]) lm8uu_mount();
 		}
-	}
-	difference() {
-		translate([8, 2, 0]) cube([4, 13, height], center=true);
-		for (z = [-4.95, 4.5])
-			translate([8, 5, z])
-				cube([5, 13, 3], center=true);
-	}
-	for (y = [1.5, 5, 8.5]) {
-		translate([8, y, 0]) cube([4, 0.9, height], center=true);
+		difference() {
+			union() {
+				translate([0, -6, 0])
+					cube([50, 4, height], center=true);
+				translate([0, -22, -height/2+4])
+					parallel_joints();
+			}
+			for (x = [-30, 30]) {
+				translate([x, 0, 0])
+					cylinder(r=8, h=height+1, center=true);
+				for (z = [-4.495, 4.5])
+					translate([x, 0, z])
+						cylinder(r=13, h=3, center=true);
+			}
+		}
+		difference() {
+			translate([8, 2, 0]) cube([4, 13, height], center=true);
+			for (z = [-4.95, 4.5])
+				translate([8, 5, z])
+					cube([5, 13, 3], center=true);
+		}
+		for (y = [1.5, 5, 8.5]) {
+			translate([8, y, 0]) cube([4, 0.9, height], center=true);
+		}
 	}
 }
+
+translate([0, 0, height/2]) carriage();

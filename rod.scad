@@ -22,13 +22,16 @@ module cubicle() {
 	}
 }
 
-rotate([0, 0, 45]) {
-	// Nozzle wipers.
+// Nozzle wipers.
+module wipers() {
 	translate([l/2+2, 0, 0]) cubicle();
 	translate([-l/2-2, 0, 0]) cubicle();
 	translate([l/2-25, 0, 0]) collar();
 	translate([-l/2+25, 0, 0]) collar();
-	// Rod with two Y shaped rod ends.
+}
+
+// Rod with two Y shaped rod ends.
+module rod() {
 	union() {
 		translate([-l/2, 0, 0]) jaws();
 		translate([l/2, 0, 0]) rotate([0, 0, 180]) jaws();
@@ -36,6 +39,11 @@ rotate([0, 0, 45]) {
 			cylinder(r=r, h=l-18, center=true, $fn=6);
 	}
 }
+
+rotate([0, 0, 45]) rod();
+
+// If your nozzle doesn't ooze at all, you can comment the next line out.
+rotate([0, 0, 45]) wipers();
 
 // Print platform.
 bed = 8*25.4; // 8x8 inches.
