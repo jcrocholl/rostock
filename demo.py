@@ -38,6 +38,7 @@ SIN_60 = math.sin(math.pi / 3)
 COS_60 = 0.5
 
 RADIUS = 150 - 33 - 15
+ZERO_OFFSET = -10
 TOWER_1 = Vector(0, RADIUS, 0)
 TOWER_2 = Vector(SIN_60 * RADIUS, -COS_60*RADIUS, 0)
 TOWER_3 = Vector(-SIN_60 * RADIUS, -COS_60*RADIUS, 0)
@@ -48,38 +49,54 @@ def delta(v):
     t2 = TOWER_2 - v
     t3 = TOWER_3 - v
     return Vector(
-        400 - v.z - math.sqrt(250*250 - t1.x*t1.x - t1.y*t1.y),
-        400 - v.z - math.sqrt(250*250 - t2.x*t2.x - t2.y*t2.y),
-        400 - v.z - math.sqrt(250*250 - t3.x*t3.x - t3.y*t3.y))
+        v.z + math.sqrt(250*250 - t1.x*t1.x - t1.y*t1.y) + ZERO_OFFSET,
+        v.z + math.sqrt(250*250 - t2.x*t2.x - t2.y*t2.y) + ZERO_OFFSET,
+        v.z + math.sqrt(250*250 - t3.x*t3.x - t3.y*t3.y) + ZERO_OFFSET)
 
 
 def linear(start, stop, speed):
-    steps = max(1, int(abs(stop - start) * 50 / min(speed, 200)))
+    cartesian_mm = abs(stop - start)
+    steps = max(1, int(cartesian_mm * 50 / min(speed, 200)))
+    cartesian_mm /= steps
+    previous = delta(start)
     for step in range(steps):
-        d = delta(start + (stop - start) * (float(1 + step) / steps))
-        print 'G1', d.gcode()
+        d = delta(start + (stop - start) * (float(step + 1) / steps))
+        print 'G1', d.gcode(),
+        delta_mm = abs(d - previous)
+        factor = delta_mm / cartesian_mm
+        print 'F%.3f' % (60 * speed * factor), ';', delta_mm, cartesian_mm
+        previous = d
 
 
 print 'G21 ; set units to millimeters'
 print 'G90 ; use absolute positioning'
-print 'G28 ; move to origin'
-# print 'G92', delta(Vector(0, 0, 0)).gcode()
+print 'G28 ; home all axes'
 
-SIZE = 80
+SIZE = 60
+SIZE2 = SIZE * math.sqrt(2)  # diagonal
 
 previous = Vector(0, 0, 0)
 print 'G1 F3000'
 
-speeds = [100, 200, 300, 400, 500, 600]
+speeds = [50, 100, 200]
 for speed in speeds:
     print 'G1 F%d' % (speed * 60)
-    z = (speed - 100) / 5
-    for a in range(0, 720, 5):
+    z = 0  # (speed - 100) / 5
+    for a in xrange(0, 720, 90):
         vector = Vector(math.sin(a * math.pi / 180) * SIZE,
-                        math.cos(a * math.pi / 180) * SIZE, z)
+                        math.cos(a * math.pi / 180) * SIZE,
+                        z)
+        linear(previous, vector, speed)
+        previous = vector
+    for y in xrange(-SIZE2, SIZE2, 5):
+        x = SIZE2 - abs(y)
+        vector = Vector(-x, y, z)
+        linear(previous, vector, speed)
+        previous = vector
+        vector = Vector(x, y, z)
         linear(previous, vector, speed)
         previous = vector
 
 # linear(previous, Vector(0, 0, 0), 300)
-print 'G1 X30 Y30 Z30'
+print 'G1 X400 Y400 Z400'
 print 'M84 ; all motors off'
