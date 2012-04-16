@@ -70,7 +70,7 @@ module carriage() {
 		belt_mount();
 		difference() {
 			union() {
-				translate([0, -5.57, 0])
+				translate([0, -5.6, 0])
 					cube([50, 5, height], center=true);
 				translate([0, -22, -height/2+4])
 					parallel_joints(16);
