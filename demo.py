@@ -72,23 +72,24 @@ print 'G21 ; set units to millimeters'
 print 'G90 ; use absolute positioning'
 print 'G28 ; home all axes'
 
-SIZE = 60
+SIZE = 50
 SIZE2 = SIZE * math.sqrt(2)  # diagonal
 
 previous = Vector(0, 0, 0)
 print 'G1 F3000'
 
-speeds = [50, 100, 200]
+speeds = [30, 60, 100, 200]
 for speed in speeds:
     print 'G1 F%d' % (speed * 60)
     z = 0  # (speed - 100) / 5
-    for a in xrange(0, 720, 90):
-        vector = Vector(math.sin(a * math.pi / 180) * SIZE,
-                        math.cos(a * math.pi / 180) * SIZE,
-                        z)
-        linear(previous, vector, speed)
-        previous = vector
-    for y in xrange(-SIZE2, SIZE2, 5):
+    for a in xrange(0, 1441, 3):
+        v = Vector(math.sin(a * math.pi / 180) * SIZE,
+                   math.cos(a * math.pi / 180) * SIZE,
+                   z)
+        d = delta(v)
+        print 'G1', d.gcode()
+        previous = v
+    for y in xrange(-int(SIZE2), int(SIZE2), 10):
         x = SIZE2 - abs(y)
         vector = Vector(-x, y, z)
         linear(previous, vector, speed)
