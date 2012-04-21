@@ -1,25 +1,40 @@
 radius = 175; // pretty close to 150/cos(30)
 radius2 = radius/cos(30);
+tri_radius = radius2/cos(30)/2;
 offset = 150-radius;
 thickness = 9;
 
 module plywood() {
-	difference() {
-		intersection() {
-			cube([2*radius, 300, 9], center=true);
-			translate([0, offset, 0]) rotate([0, 0, 30])
-				cylinder(r=2*radius, h=20, center=true, $fn=3);
-		}
-		for (a = [0, 120, 240]) {
-			translate([0, offset, 0]) rotate([0, 0, a]) {
-				translate([-30, radius-8, 0])
-					cylinder(r=2.2, h=20, center=true, $fn=12);
-				translate([30, radius-8, 0])
-					cylinder(r=2.2, h=20, center=true, $fn=12);
-			}
-		}
-	}
+  difference() {
+    intersection() {
+      cube([2*radius, 300, 9], center=true);
+      translate([0, offset, 0]) rotate([0, 0, 30])
+	cylinder(r=2*radius, h=20, center=true, $fn=3);
+    }
+    for (a = [0, 120, 240]) {
+      translate([0, offset, 0]) rotate([0, 0, a]) {
+	translate([-30, radius-8, 0])
+	  cylinder(r=2.2, h=20, center=true, $fn=12);
+	translate([30, radius-8, 0])
+	  cylinder(r=2.2, h=20, center=true, $fn=12);
+      }
+    }
+  }
 }
+
+module triangle() {
+  difference() {
+    rotate([0, 0, 30]) cylinder(r=tri_radius, h=3, $fn=3);
+    translate([-30, tri_radius/2-8, 0])
+      #cylinder(r=2.2, h=50, center=true, $fn=12);
+      translate([30, tri_radius/2-8, 0])
+      #cylinder(r=2.2, h=50, center=true, $fn=12);
+  }
+}
+translate([0, offset, 10])
+for (a = [0, 120, 240]) rotate([0, 0, a])
+translate([0, tri_radius, 0]) triangle();
+
 
 translate([0, 0, thickness/2]) plywood();
 
