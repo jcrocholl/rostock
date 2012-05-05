@@ -37,11 +37,11 @@ class Vector(object):
 SIN_60 = math.sin(math.pi / 3)
 COS_60 = 0.5
 
-RADIUS = 150 - 33 - 15
-ZERO_OFFSET = -10
-TOWER_1 = Vector(0, RADIUS, 0)
+RADIUS = 175 - 33 - 18
+ZERO_OFFSET = -7
+TOWER_1 = Vector(-SIN_60 * RADIUS, -COS_60*RADIUS, 0)
 TOWER_2 = Vector(SIN_60 * RADIUS, -COS_60*RADIUS, 0)
-TOWER_3 = Vector(-SIN_60 * RADIUS, -COS_60*RADIUS, 0)
+TOWER_3 = Vector(0, RADIUS, 0)
 
 
 def delta(v):
@@ -64,7 +64,7 @@ def linear(start, stop, speed):
         print 'G1', d.gcode(),
         delta_mm = abs(d - previous)
         factor = delta_mm / cartesian_mm
-        print 'F%.3f' % (60 * speed * factor), ';', delta_mm, cartesian_mm
+        print 'F%.3f' % (60 * speed * factor)
         previous = d
 
 
@@ -72,17 +72,17 @@ print 'G21 ; set units to millimeters'
 print 'G90 ; use absolute positioning'
 print 'G28 ; home all axes'
 
-SIZE = 50
+SIZE = 60
 SIZE2 = SIZE * math.sqrt(2)  # diagonal
 
 previous = Vector(0, 0, 0)
 print 'G1 F3000'
 
-speeds = [30, 60, 100, 200]
+speeds = [100, 200, 300, 400]
 for speed in speeds:
     print 'G1 F%d' % (speed * 60)
     z = 0  # (speed - 100) / 5
-    for a in xrange(0, 1441, 3):
+    for a in xrange(0, 1441, min(speed/100, 3)):
         v = Vector(math.sin(a * math.pi / 180) * SIZE,
                    math.cos(a * math.pi / 180) * SIZE,
                    z)
