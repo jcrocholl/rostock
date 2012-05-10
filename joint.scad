@@ -20,4 +20,4 @@ module middle() {
   }
 }
 
-% translate([0, 0, h/2]) middle();
+translate([0, 0, h/2]) middle();
