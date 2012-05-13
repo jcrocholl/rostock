@@ -71,6 +71,8 @@ def delta(v):
 
 def G1(pos, dest):
     """Convert a long linear cartesian move into many small moves."""
+    global num_lines
+
     for char in 'XYZEF':
         if char not in dest:
             dest[char] = pos[char]
@@ -79,7 +81,7 @@ def G1(pos, dest):
     finish = Vector(dest['X'], dest['Y'], dest['Z'])
 
     cartesian_mm = abs(finish - start)
-    steps = max(1, int(cartesian_mm))
+    steps = max(1, int(5 * cartesian_mm))
     cartesian_mm /= steps
 
     previous = delta(start)
@@ -106,6 +108,7 @@ def G1(pos, dest):
             print f,
         print
         previous = d
+        num_lines += 1
 
     for char in 'XYZEF':
         pos[char] = dest[char]
@@ -132,6 +135,7 @@ pos = {}
 for char in 'XYZEF':
     pos[char] = 0.0
 
+num_lines = 0
 for line in sys.stdin:
     words = line.split()
     if not words:
@@ -147,7 +151,7 @@ for line in sys.stdin:
     if words[0] == 'G1':
         print ';', line.strip()
         G1(pos, dest)
-        if pos['Z'] > 2:
+        if num_lines > 10000:
             sys.exit(0)
     elif words[0] == 'G28':
         G28(pos, dest)
