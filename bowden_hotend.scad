@@ -8,10 +8,10 @@ module clamp(h, base){
       // Base middle.
       translate([0, 0, base/2]) {
 	cylinder(r=11, h=base, center=true);
-	cube([44.2, 12, base], center=true);
+	cube([46, 12, base], center=true);
       }
-      // Base around screw holes.
-      for (x = [-22.1, 22.1]) {
+      // Shoulders around screw holes.
+      for (x = [-23, 23]) {
 	translate([x, 0, base/2]) cylinder(r=6, h=base, center=true);
       }
     }
@@ -22,7 +22,7 @@ module clamp(h, base){
       rotate([0, 0, a]) translate([3, 0, base+1+h/2])
 	cube([5, 1, h], center=true);
     }
-    // Bottom opening for PEEK insulator (e.g. MakerGear GrooveMount).
+    // Holder for PEEK insulator (e.g. MakerGear GrooveMount).
     cylinder(r=8.2, h=10, center=true);
     // Nut traps and screw holes.
     for (x = [-25, 25]) {
@@ -30,6 +30,7 @@ module clamp(h, base){
 	cylinder(r = 2.2, h=base+1, center=true, $fn=12);
 	rotate([0, 0, 0]) cylinder(r=4.1, h=base, $fn=6);
       }
+      translate([x*1.2, 0, base]) cube([6, 20, base], center=true);
     }
   }
 }
