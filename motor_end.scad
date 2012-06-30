@@ -11,7 +11,7 @@ module motor_end() {
         // Diagonal fins.
         translate([x, 29.5, 0]) intersection() {
           cube([5, 30, h], center=true);
-          rotate([45]) translate([0, -50, 0])
+          rotate([45, 0, 0]) translate([0, -50, 0])
             cube([20, 100, 100], center=true);
         }
         // Extra mounting screw holes.
@@ -22,17 +22,17 @@ module motor_end() {
       }
     }
     // Motor shaft (RepRap logo)
-    rotate([90]) cylinder(r=12, h=40, center=true);
-    translate([0, 0, sin(45)*12]) rotate([0, 45])
+    rotate([90, 0, 0]) cylinder(r=12, h=40, center=true);
+    translate([0, 0, sin(45)*12]) rotate([0, 45, 0])
       cube([12, 40, 12], center=true);
     // Motor mounting screw slots
-    translate([m/2, 0, m/2]) rotate([0, -45])
+    translate([m/2, 0, m/2]) rotate([0, -45, 0])
       cube([9, 40, 3], center=true);
-    translate([-m/2, 0, m/2]) rotate([0, 45])
+    translate([-m/2, 0, m/2]) rotate([0, 45, 0])
       cube([9, 40, 3], center=true);
-    translate([m/2, 0, -m/2]) rotate([0, 45])
+    translate([m/2, 0, -m/2]) rotate([0, 45, 0])
       cube([9, 40, 3], center=true);
-    translate([-m/2, 0, -m/2]) rotate([0, -45])
+    translate([-m/2, 0, -m/2]) rotate([0, -45, 0])
       cube([9, 40, 3], center=true);
     for (z = [-14, 0, 14]) {
       translate([0, 0, z]) screws();

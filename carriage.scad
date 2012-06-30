@@ -10,10 +10,10 @@ module parallel_joints(reinforced) {
     union() {
       intersection() {
         cube([width, 20, 8], center=true);
-        rotate([0, 90]) cylinder(r=5, h=width, center=true);
+        rotate([0, 90, 0]) cylinder(r=5, h=width, center=true);
       }
       intersection() {
-        translate([0, 18, 4]) rotate([45])
+        translate([0, 18, 4]) rotate([45, 0, 0])
           cube([width, reinforced, reinforced], center=true);
         translate([0, 0, 20]) cube([width, 35, 40], center=true);
       }
@@ -94,4 +94,4 @@ translate([0, 0, height/2]) carriage();
 
 // Uncomment the following lines to check endstop alignment.
 // use <idler_end.scad>;
-// translate([0, 0, -20]) rotate([180]) idler_end();
+// translate([0, 0, -20]) rotate([180, 0, 0]) idler_end();

@@ -42,11 +42,11 @@ module tower(z) {
 module rod_pair(x, y, rotate_z, elevation, azimuth) {
 	translate([x, y, z0+94]) {
 		rotate([0, 0, rotate_z]) translate([25, 82, 0])
-			rotate([0, 0, azimuth]) rotate([elevation])
-			rotate([-azimuth, 0, 90]) rotate([90]) rod(rod_length);
+			rotate([0, 0, azimuth]) rotate([elevation, 0, 0])
+			rotate([-azimuth, 0, 90]) rotate([90, 0, 0]) rod(rod_length);
 		rotate([0, 0, rotate_z]) translate([-25, 82, 0])
-			rotate([0, 0, azimuth]) rotate([elevation])
-			rotate([-azimuth, 0, 90]) rotate([90]) rod(rod_length);
+			rotate([0, 0, azimuth]) rotate([elevation, 0, 0])
+			rotate([-azimuth, 0, 90]) rotate([90, 0, 0]) rod(rod_length);
 	}
 }
 

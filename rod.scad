@@ -9,7 +9,7 @@ module collar() {
   difference() {
     cube([4, 20, h], center=true);
     cube([2, 18, h+1], center=true);
-    rotate([0, 90]) rotate([0, 0, 30])
+    rotate([0, 90, 0]) rotate([0, 0, 30])
       cylinder(r=5, h=5, center=true, $fn=6);
   }
 }
@@ -35,7 +35,7 @@ module rod() {
   union() {
     translate([-l/2, 0, 0]) jaws();
     translate([l/2, 0, 0]) rotate([0, 0, 180]) jaws();
-    rotate([0, 90]) rotate([0, 0, 30])
+    rotate([0, 90, 0]) rotate([0, 0, 30])
       cylinder(r=r, h=l-18, center=true, $fn=6);
   }
 }

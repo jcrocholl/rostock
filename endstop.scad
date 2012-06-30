@@ -31,9 +31,9 @@ module endstop() {
     }
     // M2.5x12 micro switch mounting screws.
     # translate([-x, y, -b/2]) rotate([0, 0, a]) {
-      translate([0, -3.5-9.5/2, 0]) rotate([0, 90])
+      translate([0, -3.5-9.5/2, 0]) rotate([0, 90, 0])
         cylinder(r=1.1, h=36, center=true, $fn=12);
-      translate([0, -3.5+9.5/2, 0]) rotate([0, 90])
+      translate([0, -3.5+9.5/2, 0]) rotate([0, 90, 0])
         cylinder(r=1.1, h=36, center=true, $fn=12);
     }
     // Push-through hole for vertical M4 screw.
