@@ -1,5 +1,7 @@
+include <configuration.scad>
+
 width = 76;
-height = 24;
+height = carriage_height;
 
 offset = 25;
 cutout = 13;
@@ -63,6 +65,7 @@ module belt_mount() {
 }
 
 module carriage() {
+  translate([0, 0, height/2]) 
   union() {
     for (x = [-30, 30]) {
       translate([x, 0, 0]) lm8uu_mount(d=15, h=24);
@@ -72,7 +75,7 @@ module carriage() {
       union() {
         translate([0, -5.6, 0])
           cube([50, 5, height], center=true);
-        translate([0, -22, -height/2+4])
+        translate([0, -carriage_hinge_offset, -height/2+4])
           parallel_joints(16);
       }
       // Screw hole for adjustable top endstop.
@@ -90,7 +93,7 @@ module carriage() {
   }
 }
 
-translate([0, 0, height/2]) carriage();
+carriage();
 
 // Uncomment the following lines to check endstop alignment.
 // use <idler_end.scad>;

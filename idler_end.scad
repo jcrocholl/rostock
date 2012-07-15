@@ -1,6 +1,7 @@
-use <bracket.scad>;
+include <configuration.scad>
+use <bracket.scad>
 
-h = 28; // Total height.
+h = idler_end_height; // Total height.
 tilt = 2; // Tilt bearings upward (the timing belt is pulling pretty hard).
 
 module bearing_mount() {
@@ -12,6 +13,7 @@ x = 17.7; // Micro switch center.
 y = 16; // Micro switch center.
 
 module idler_end() {
+  translate([0, 0, h/2]) 
   difference() {
     union() {
       bracket(h);
@@ -42,4 +44,4 @@ module idler_end() {
   }
 }
 
-translate([0, 0, h/2]) idler_end();
+idler_end();
