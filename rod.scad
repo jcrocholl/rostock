@@ -1,6 +1,7 @@
-use <jaws.scad>;
+include <configuration.scad>
+use <jaws.scad>
 
-l = 250;
+l = rod_length;
 h = 7;
 r = h/2 / cos(30);
 
@@ -31,7 +32,8 @@ module wipers() {
 }
 
 // Rod with two Y shaped rod ends.
-module rod() {
+module rod(l) {
+  translate([l/2,0,0])
   union() {
     translate([-l/2, 0, 0]) jaws();
     translate([l/2, 0, 0]) rotate([0, 0, 180]) jaws();
@@ -40,11 +42,21 @@ module rod() {
   }
 }
 
-rotate([0, 0, 45]) rod();
+module printable_rod(l)
+{
+	// Print platform.
+	bed = 8*25.4; // 8x8 inches.
+	% translate([0, 0, -1]) cube([bed, bed, 2], center=true);
 
-// If your nozzle doesn't ooze at all, you can comment the next line out.
-rotate([0, 0, 45]) wipers();
+	rotate(45)
+	translate([-l/2,0,h/2])
+	rod(l=l);
 
-// Print platform.
-bed = 8*25.4; // 8x8 inches.
-% translate([0, 0, -h/2-1]) cube([bed, bed, 2], center=true);
+	// If your nozzle doesn't ooze at all, you can comment the next line out.
+	translate([0,0,h/2])
+	rotate(45)
+	wipers();
+}
+
+rod(l=l);
+//printable_rod(l=l);

@@ -1,10 +1,12 @@
-use <bracket.scad>;
+include <configuration.scad>
+use <bracket.scad>
 
-h = 44; // Total height.
+h = motor_end_height; // Total height.
 m = 29; // Motor mounting screws distance (center to center)
 
 module motor_end() {
-  difference() {
+    translate([0, 0, h/2]) 
+    difference() {
     union() {
       bracket(h);
       for (x = [-30, 30]) {
@@ -40,4 +42,4 @@ module motor_end() {
   }
 }
 
-translate([0, 0, h/2]) motor_end();
+motor_end();

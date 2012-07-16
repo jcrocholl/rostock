@@ -10,7 +10,8 @@ motor_screw = 15.5;
 motor_diagonal = sqrt(2 * motor_screw * motor_screw);
 
 module nema17(length) {
-  color([0.4, 0.4, 0.4]) {
+  color([0.4, 0.4, 0.4]) 
+  render() {
     translate([0, -length/2-17, 0])
       intersection() {
       cube([42, length, 42], center=true);
